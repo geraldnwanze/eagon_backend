@@ -11,10 +11,12 @@ use App\Http\Requests\API\Auth\ResidentLoginRequest;
 use App\Http\Requests\API\Auth\SuperAdminLoginRequest;
 use App\Http\Resources\UserResource;
 use App\Jobs\FirstLoginJob;
+use App\Mail\TestMail;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -133,4 +135,5 @@ class AuthController extends Controller
     {
 
     }
+
 }
