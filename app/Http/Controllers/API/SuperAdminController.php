@@ -9,6 +9,7 @@ use App\Http\Requests\API\Admin\CreateAdminRequest;
 use App\Http\Requests\API\Admin\CreateEstateRequest;
 use App\Http\Resources\EstateResource;
 use App\Http\Resources\UserResource;
+use App\Jobs\WelcomeAndAuthDetailJob;
 use App\Models\Estate;
 use App\Models\Tenant;
 use App\Models\User;
@@ -65,6 +66,8 @@ class SuperAdminController extends Controller
         unset($data['estate_id']);
 
         $admin = User::create($data);
+
+        WelcomeAndAuthDetailJob::dispatch($admin, $request->validated('password'));
 
         return ApiResponse::success("Sign in details have been sent to {$admin->email}");
     }
