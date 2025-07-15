@@ -2,7 +2,9 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -13,12 +15,16 @@ class FirstLoginMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public User|Authenticatable $user;
+    public string $code;
+
     /**
      * Create a new message instance.
      */
-    public function __construct(public $user, public $code)
+    public function __construct(User|Authenticatable $user, string $code)
     {
-        //
+        $this->user = $user;
+        $this->code = $code;
     }
 
     /**
