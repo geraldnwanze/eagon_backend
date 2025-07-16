@@ -77,7 +77,7 @@ class AdminController extends Controller
             'qr_code' => CommonHelper::generateQrCode($resident->id)
         ]);
 
-        // WelcomeAndVerificationMailJob::dispatch($resident, $request->validated('password'));
+        WelcomeAndVerificationMailJob::dispatch($resident, $request->validated('password'));
 
         return ApiResponse::success("Sign in details have been sent to {$resident->email}");
     }

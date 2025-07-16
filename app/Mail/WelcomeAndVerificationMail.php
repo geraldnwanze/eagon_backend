@@ -13,12 +13,15 @@ class WelcomeAndVerificationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $resident;
+    public $password;
     /**
      * Create a new message instance.
      */
     public function __construct($resident, $password)
     {
-        //
+        $this->resident = $resident;
+        $this->password = $password;
     }
 
     /**
