@@ -11,9 +11,9 @@
     <tbody>
     <tr>
         <td class="bg-white p-8 rounded-lg shadow-md">
-            <h2 class="text-xl font-bold text-center mb-4">Hello {{ $user->full_name }}</h2>
-            <p class="text-center mb-2">You have been invited by {{ ucwords($estate) }} as a {{ ucfirst($user->role) }}. Use the credentials provided for your first login, ensure to change your password.</p>
-            <p class="font-medium text-center bg-gray-200 py-6 rounded">Email: {{ $user->email }}</p>
+            <h2 class="text-xl font-bold text-center mb-4">Hello {{ $resident->full_name }}</h2>
+            <p class="text-center mb-2">You have been invited by {{ ucwords($estate) }} as a {{ ucfirst($resident->role) }}. Use the credentials provided for your first login, ensure to change your password.</p>
+            <p class="font-medium text-center bg-gray-200 py-6 rounded">Email: {{ $resident->email }}</p>
             <p class="font-medium text-center bg-gray-200 py-6 rounded">Password: {{ $password }}</p>
         </td>
     </tr>
