@@ -28,6 +28,7 @@ use App\Models\Estate;
 use App\Models\EstateLocation;
 use App\Models\Guest;
 use App\Models\GuestLocation;
+use App\Models\Tenant;
 use App\Models\User;
 use App\Models\UserLocation;
 use Carbon\Carbon;

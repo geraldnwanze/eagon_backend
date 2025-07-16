@@ -3,6 +3,8 @@
 namespace App\Jobs;
 
 use App\Mail\WelcomeAndVerificationMail;
+use App\Models\Estate;
+use App\Models\Tenant;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Mail;
@@ -13,6 +15,7 @@ class WelcomeAndVerificationMailJob implements ShouldQueue
 
     public $resident;
     public $password;
+    public $estate;
 
     /**
      * Create a new job instance.
@@ -21,6 +24,8 @@ class WelcomeAndVerificationMailJob implements ShouldQueue
     {
         $this->resident = $resident;
         $this->password = $password;
+        $tenant = Tenant::where('key', $resident->tenant_key)->first();
+        $this->estate = $tenant->estate;
     }
 
     /**
@@ -28,6 +33,6 @@ class WelcomeAndVerificationMailJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->resident->email)->send(new WelcomeAndVerificationMail($this->resident, $this->password));
+        Mail::to($this->resident->email)->send(new WelcomeAndVerificationMail($this->resident, $this->password, $this->estate));
     }
 }

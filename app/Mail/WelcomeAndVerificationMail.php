@@ -15,13 +15,15 @@ class WelcomeAndVerificationMail extends Mailable
 
     public $resident;
     public $password;
+    public $estate;
     /**
      * Create a new message instance.
      */
-    public function __construct($resident, $password)
+    public function __construct($resident, $password, $estate)
     {
         $this->resident = $resident;
         $this->password = $password;
+        $this->estate = $estate;
     }
 
     /**
