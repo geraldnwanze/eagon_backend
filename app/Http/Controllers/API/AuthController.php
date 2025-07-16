@@ -8,10 +8,12 @@ use App\Helpers\CommonHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Auth\AdminLoginRequest;
 use App\Http\Requests\API\Auth\ResidentLoginRequest;
+use App\Http\Requests\API\Auth\ResidentVerifyEmailRequest;
 use App\Http\Requests\API\Auth\SuperAdminLoginRequest;
 use App\Http\Resources\UserResource;
 use App\Jobs\FirstLoginJob;
 use App\Mail\TestMail;
+use App\Models\OTP;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -131,9 +133,27 @@ class AuthController extends Controller
 
     }
 
-    public function residentVerifyEmail()
+    public function residentVerifyEmail(ResidentVerifyEmailRequest $request)
     {
+        $user = User::where(['email' => $request->validated('email'), 'tenant_key' => $request->header('tenant_key')])->first();
+        $otp = OTP::where(['user' => $user->id, 'tenant_key' => $request->header('tenant_key')])->first();
 
+        if (!$otp || $otp->code != $request->validated('otp') || $otp->expires_at <= now()) {
+            return ApiResponse::failure('Invalid OTP provided');
+        }
+
+        $otp->update([
+            'confirmation_token' => \Illuminate\Support\Str::random(32)
+        ]);
+
+        $user->update([
+            'email_verified_at' => now(),
+            'is_first_login' => false
+        ]);
+
+        return ApiResponse::success('Email verified', [
+                'confirmation_token' => $otp->confirmation_token
+            ]);
     }
 
 }

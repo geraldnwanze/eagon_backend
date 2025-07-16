@@ -16,6 +16,8 @@ Route::group(['prefix' => 'v1'], function() {
         Route::post('/resident/login', [AuthController::class, 'residentLogin'])->middleware('tenant');
         Route::post('/admin/login', [AuthController::class, 'adminLogin'])->middleware('tenant');
         Route::post('/super-admin/login', [AuthController::class, 'superAdminLogin']);
+
+        Route::post('/email/verify', [AuthController::class, 'residentVerifyEmail'])->middleware('tenant');
     });
 
     Route::group(['middleware' => ['tenant']], function() {
