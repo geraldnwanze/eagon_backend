@@ -136,7 +136,7 @@ class AuthController extends Controller
     public function residentVerifyEmail(ResidentVerifyEmailRequest $request)
     {
         $user = User::where(['email' => $request->validated('email'), 'tenant_key' => $request->header('tenant_key')])->first();
-        $otp = OTP::where(['user' => $user->id, 'tenant_key' => $request->header('tenant_key')])->first();
+        $otp = OTP::where(['user_id' => $user->id, 'tenant_key' => $request->header('tenant_key')])->first();
 
         if (!$otp || $otp->code != $request->validated('otp') || $otp->expires_at <= now()) {
             return ApiResponse::failure('Invalid OTP provided');
