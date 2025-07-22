@@ -40,7 +40,7 @@ class AuthController extends Controller
 
         if ($user->is_first_login) {
             $code = CommonHelper::generateOTP($user);
-            FirstLoginJob::dispatch($user, $code);
+            FirstLoginJob::dispatchSync($user, $code);
             return ApiResponse::success('Verification code has been sent to  your email');
         }
 

@@ -67,7 +67,7 @@ class SuperAdminController extends Controller
 
         $admin = User::create($data);
 
-        WelcomeAndAuthDetailJob::dispatch($admin, $request->validated('password'));
+        WelcomeAndAuthDetailJob::dispatchSync($admin, $request->validated('password'));
 
         return ApiResponse::success("Sign in details have been sent to {$admin->email}");
     }

@@ -88,7 +88,7 @@ class ResidentController extends Controller
         $guest = Guest::create($data);
         if ($request->validated('email')) {
             $user = $request->user();
-            GuestInvitationJob::dispatch($user, $guest);
+            GuestInvitationJob::dispatchSync($user, $guest);
         }
         return ApiResponse::success('Guest invited successfully', [
             'guest' => new GuestResource($guest)

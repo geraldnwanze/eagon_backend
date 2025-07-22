@@ -24,6 +24,7 @@ use App\Http\Resources\GuestLocationResource;
 use App\Http\Resources\GuestResource;
 use App\Http\Resources\UserResource;
 use App\Jobs\WelcomeAndVerificationMailJob;
+use App\Mail\WelcomeAndVerificationMail;
 use App\Models\Estate;
 use App\Models\EstateLocation;
 use App\Models\Guest;
@@ -78,7 +79,7 @@ class AdminController extends Controller
             'qr_code' => CommonHelper::generateQrCode($resident->id)
         ]);
 
-        WelcomeAndVerificationMailJob::dispatch($resident, $request->validated('password'));
+        WelcomeAndVerificationMailJob::dispatchSync($resident, $request->validated('password'));
 
         return ApiResponse::success("Sign in details have been sent to {$resident->email}");
     }
