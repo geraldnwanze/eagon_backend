@@ -29,7 +29,7 @@ class InviteGuestRequest extends FormRequest
             'valid_to_time' => ['required', 'date_format:H:i:s'],
             'phone_number' => ['required', 'numeric'],
             'email' => ['nullable', 'email'],
-            'estate_id' => ['required', 'string', 'exists:estates,uuid'],
+            'estate_id' => ['required', 'string', 'exists:estates,id'],
         ];
     }
 
