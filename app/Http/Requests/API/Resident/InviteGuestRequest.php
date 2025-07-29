@@ -24,10 +24,10 @@ class InviteGuestRequest extends FormRequest
         return [
             'full_name' => ['required', 'string'],
             'valid_from_date' => ['required', 'date', 'date_format:Y-m-d'],
-            'valid_from_time' => ['required', 'date_format:H:i:s'],
+            'valid_from_time' => ['required', 'date_format:H:i'],
             'valid_to_date' => ['required', 'date', 'date_format:Y-m-d'],
-            'valid_to_time' => ['required', 'date_format:H:i:s'],
-            'phone_number' => ['required', 'numeric'],
+            'valid_to_time' => ['required', 'date_format:H:i'],
+            'phone_number' => ['required'],
             'email' => ['nullable', 'email'],
             'estate_id' => ['required', 'string', 'exists:estates,id'],
         ];

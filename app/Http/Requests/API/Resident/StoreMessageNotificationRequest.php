@@ -22,7 +22,7 @@ class StoreMessageNotificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'exists:users,uuid'],
+            'user_id' => ['required', 'exists:users,id'],
             'data' => ['required', 'string']
         ];
     }

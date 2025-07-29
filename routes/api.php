@@ -10,6 +10,7 @@ use App\Mail\TestMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
+
 Route::group(['prefix' => 'v1'], function() {
 
     Route::group(['prefix' => 'auth'], function() {
@@ -22,7 +23,7 @@ Route::group(['prefix' => 'v1'], function() {
 
     Route::group(['middleware' => ['tenant']], function() {
 
-        Route::group(['prefix' => 'guest'], function() {
+        Route::group(['prefix' => 'guest', 'middleware' => ['guest']], function() {
             Route::post('/invite/accept', [GuestController::class, 'acceptInvite']);
             Route::post('/exit-estate', [GuestController::class, 'exitEstate']);
             Route::post('/current/location/save', [GuestController::class, 'saveCurrentLocation']);
@@ -30,7 +31,7 @@ Route::group(['prefix' => 'v1'], function() {
             Route::get('/message/fetch', [ResidentController::class, 'fetchMessages']);
         });
 
-        Route::group(['prefix' => 'resident', 'middleware' => ['auth:sanctum']], function() {
+        Route::group(['prefix' => 'resident', 'middleware' => ['auth:sanctum', 'resident']], function() {
 
             Route::get('/profile/fetch', [ResidentController::class, 'profile']);
             Route::post('/avatar/update', [ResidentController::class, 'updateAvatar']);

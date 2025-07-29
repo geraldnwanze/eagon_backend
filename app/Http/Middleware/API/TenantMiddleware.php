@@ -18,33 +18,33 @@ class TenantMiddleware
     public function handle(Request $request, Closure $next): Response
     {
 
-        if ($request->user() && $request->user()->role != RoleEnum::SUPER_ADMIN->value) {
-            if (!$request->header('tenant_key')) {
-                return response()->json([
-                    'message' => 'Tenant key is required'
-                ], Response::HTTP_FORBIDDEN);
-            }
+        // if ($request->user() && $request->user()->role != RoleEnum::SUPER_ADMIN->value) {
+        //     if (!$request->header('tenant_key')) {
+        //         return response()->json([
+        //             'message' => 'Tenant key is required'
+        //         ], Response::HTTP_FORBIDDEN);
+        //     }
 
-            if (!Tenant::where('key', $request->header('tenant_key'))->exists()) {
-                return response()->json([
-                    'message' => 'Invalid Tenant key'
-                ], Response::HTTP_FORBIDDEN);
-            }
-        }
+        //     if (!Tenant::where('key', $request->header('tenant_key'))->exists()) {
+        //         return response()->json([
+        //             'message' => 'Invalid Tenant key'
+        //         ], Response::HTTP_FORBIDDEN);
+        //     }
+        // }
 
-        if (!$request->user() && $request->input('email') !== 'superadmin@example.com') {
-            if (!$request->header('tenant_key')) {
-                return response()->json([
-                    'message' => 'Tenant key is required'
-                ], Response::HTTP_FORBIDDEN);
-            }
+        // if (!$request->user() && $request->input('email') !== 'superadmin@example.com') {
+        //     if (!$request->header('tenant_key')) {
+        //         return response()->json([
+        //             'message' => 'Tenant key is required'
+        //         ], Response::HTTP_FORBIDDEN);
+        //     }
 
-            if (!Tenant::where('key', $request->header('tenant_key'))->exists()) {
-                return response()->json([
-                    'message' => 'Invalid Tenant key'
-                ], Response::HTTP_FORBIDDEN);
-            }
-        }
+        //     if (!Tenant::where('key', $request->header('tenant_key'))->exists()) {
+        //         return response()->json([
+        //             'message' => 'Invalid Tenant key'
+        //         ], Response::HTTP_FORBIDDEN);
+        //     }
+        // }
 
         return $next($request);
     }
