@@ -28,7 +28,7 @@ Route::group(['prefix' => 'v1'], function() {
             Route::post('/exit-estate', [GuestController::class, 'exitEstate']);
             Route::post('/current/location/save', [GuestController::class, 'saveCurrentLocation']);
             Route::post('/message/save', [GuestController::class, 'saveMessage']);
-            Route::get('/message/fetch', [ResidentController::class, 'fetchMessages']);
+            Route::get('/message/fetch', [GuestController::class, 'fetchMessages']);
         });
 
         Route::group(['prefix' => 'resident', 'middleware' => ['auth:sanctum', 'resident']], function() {
