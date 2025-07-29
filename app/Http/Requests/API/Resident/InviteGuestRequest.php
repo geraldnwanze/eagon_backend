@@ -25,11 +25,19 @@ class InviteGuestRequest extends FormRequest
             'full_name' => ['required', 'string'],
             'valid_from_date' => ['required', 'date', 'date_format:Y-m-d'],
             'valid_from_time' => ['required', 'date_format:H:i'],
-            'valid_to_date' => ['required', 'date', 'date_format:Y-m-d'],
-            'valid_to_time' => ['required', 'date_format:H:i'],
+            'valid_to_date' => ['required', 'date', 'date_format:Y-m-d', 'after:valid_from_date'],
+            'valid_to_time' => ['required', 'date_format:H:i', 'after:valid_from_time'],
             'phone_number' => ['required'],
             'email' => ['nullable', 'email'],
             'estate_id' => ['required', 'string', 'exists:estates,id'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'valid_from_time.date_format' => 'The Valid From Time must be in HH:MM format.',
+            'valid_to_time.date_format' => 'The Valid To Time must be in HH:MM format.',
         ];
     }
 
