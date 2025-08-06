@@ -22,7 +22,7 @@ class UpdateResidentStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'exists:users,uuid'],
+            'user_id' => ['required', 'string', 'exists:users,id'],
             'action' => ['required', 'in:activate,deactivate']
         ];
     }

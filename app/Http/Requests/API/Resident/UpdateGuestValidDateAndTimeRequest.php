@@ -23,9 +23,9 @@ class UpdateGuestValidDateAndTimeRequest extends FormRequest
     {
         return [
             'valid_from_date' => ['required', 'date', 'date_format:Y-m-d'],
-            'valid_from_time' => ['required', 'date_format:H:i:s'],
-            'valid_to_date' => ['required', 'date', 'date_format:Y-m-d'],
-            'valid_to_time' => ['required', 'date_format:H:i:s'],
+            'valid_from_time' => ['required', 'date_format:H:i'],
+            'valid_to_date' => ['required', 'date', 'date_format:Y-m-d', 'after:valid_from_date'],
+            'valid_to_time' => ['required', 'date_format:H:i', 'after:valid_from_time'],
         ];
     }
 }

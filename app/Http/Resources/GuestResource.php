@@ -35,9 +35,9 @@ class GuestResource extends JsonResource
             'valid_to_time' => $this->valid_to_time,
             'premiss_status' => $this->premiss_status,
             'premiss_status_updated_at' => $this->premiss_status_updated_at,
-            'resident' => new UserResource($this->resident),
-            'estate' => new EstateResource($this->estate),
-            'locations' => GuestLocationResource::collection($this->locations)
+            // 'resident' => new UserResource($this->resident),
+            // 'estate' => new EstateResource($this->estate),
+            // 'locations' => GuestLocationResource::collection($this->locations)
         ];
     }
 }

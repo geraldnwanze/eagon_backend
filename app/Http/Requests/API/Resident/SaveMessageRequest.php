@@ -26,7 +26,7 @@ class SaveMessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'receiver_id' => ['required', 'exists:users,id'],
+            'receiver_id' => ['required', 'string', 'exists:guests,id'],
             'receiver_type' => ['required', 'in:guest,resident,admin'],
             'message_body' => ['required', 'string'],
         ];

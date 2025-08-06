@@ -77,6 +77,10 @@ class GuestController extends Controller
 
         $data = $response->json();
 
+        if ($data['status'] === 'REQUEST_DENIED') {
+            return false;
+        }
+
         $distance = $data['routes'][0]['legs'][0]['distance']['value'];
 
         if ($distance > 200) {
@@ -90,6 +94,10 @@ class GuestController extends Controller
     {
         $guest = Guest::where('invitation_code', $request->validated('invitation_code'))->first();
         $outsideProximity = $this->checkProximity($guest->estate->latitude, $guest->estate->longitude, $request->input('latitude'), $request->input('longitude'));
+
+        if (!$outsideProximity) {
+            return ApiResponse::failure('Something went wrong, please try again later');
+        }
 
         if ($guest && $guest->guest_accepted) {
             $location = GuestLocation::create([

@@ -22,7 +22,7 @@ class GuestCheckInOrOutRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'guest_id' => ['required', 'exists:guests,uuid',],
+            'guest_id' => ['required', 'string', 'exists:guests,id',],
             'action' => ['required', 'in:checkin,checkout'],
             'note' => ['nullable', 'string', 'max:255']
         ];

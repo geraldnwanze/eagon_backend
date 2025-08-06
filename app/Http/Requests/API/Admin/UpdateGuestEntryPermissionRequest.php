@@ -22,7 +22,7 @@ class UpdateGuestEntryPermissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'guest_id' => ['required', 'exists:guests,uuid'],
+            'guest_id' => ['required', 'string', 'exists:guests,id'],
             'entry_permission' => ['required', 'in:allow,reject'],
             'entry_permission_reason' => ['nullable', 'string']
         ];

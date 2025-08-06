@@ -189,7 +189,7 @@ class AdminController extends Controller
 
     public function getGuestLocationHistory(Guest $guest)
     {
-        $location_history = $guest->locations()->latest();
+        $location_history = $guest->locations;
         return ApiResponse::success('Location fetched', [
             'location_history' => $location_history
         ]);
